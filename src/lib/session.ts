@@ -1,5 +1,10 @@
 import type { SessionOptions } from "iron-session";
 
+/** Shape stored in the sealed admin session cookie (iron-session v8 expects an explicit generic). */
+export type AdminSessionData = {
+  isLoggedIn?: boolean;
+};
+
 function sessionSecret(): string {
   const s = process.env.SESSION_SECRET;
   if (!s || s.length < 32) {
@@ -25,11 +30,4 @@ export function getSessionOptions(): SessionOptions {
     };
   }
   return cached;
-}
-
-declare module "iron-session" {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-  interface IronSessionData {
-    isLoggedIn?: boolean;
-  }
 }

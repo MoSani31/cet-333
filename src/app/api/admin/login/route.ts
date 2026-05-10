@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-import { getSessionOptions } from "@/lib/session";
+import { getSessionOptions, type AdminSessionData } from "@/lib/session";
 import { isAdminPasswordValid } from "@/lib/admin-password";
 
 export async function POST(request: NextRequest) {
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "That password didn't work." }, { status: 401 });
   }
 
-  const session = await getIronSession(await cookies(), getSessionOptions());
+  const session = await getIronSession<AdminSessionData>(await cookies(), getSessionOptions());
   session.isLoggedIn = true;
   await session.save();
   return NextResponse.json({ ok: true });

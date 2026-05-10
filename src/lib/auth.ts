@@ -1,10 +1,10 @@
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getSessionOptions } from "./session";
+import { getSessionOptions, type AdminSessionData } from "./session";
 
 export async function getAdminSession() {
-  return getIronSession(await cookies(), getSessionOptions());
+  return getIronSession<AdminSessionData>(await cookies(), getSessionOptions());
 }
 
 export async function requireAdmin() {
