@@ -30,22 +30,44 @@ export default async function AdminDashboardPage({
   const issueParam = Array.isArray(raw) ? raw[0] : raw;
   const issueFilter = isValidIssue(issueParam) ? issueParam : undefined;
 
-  const [inquiries, byType, byCountry] = await Promise.all([
-    db.inquiry.findMany({
-      where: issueFilter ? { securityIssueType: issueFilter } : undefined,
-      orderBy: { createdAt: "desc" },
-    }),
-    countBySecurityIssueType(),
-    countByCountry(),
-  ]);
+  let inquiries: Awaited<ReturnType<typeof db.inquiry.findMany>> = [];
+  let byType: Awaited<ReturnType<typeof countBySecurityIssueType>> = [];
+  let byCountry: Awaited<ReturnType<typeof countByCountry>> = [];
+  let loadError = false;
+  let dbConnected = false;
+
+  try {
+    await db.$queryRaw`SELECT 1`;
+    dbConnected = true;
+    [inquiries, byType, byCountry] = await Promise.all([
+      db.inquiry.findMany({
+        where: issueFilter ? { securityIssueType: issueFilter } : undefined,
+        orderBy: { createdAt: "desc" },
+      }),
+      countBySecurityIssueType(),
+      countByCountry(),
+    ]);
+  } catch {
+    // Keep admin dashboard accessible during transient DB/network issues.
+    loadError = true;
+  }
 
   const total = inquiries.length;
 
   return (
     <div className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 sm:py-12">
       <AdminSubNav currentPath="/admin/dashboard" />
+      <div
+        className={`mt-6 rounded-md border px-4 py-2 text-sm ${
+          dbConnected
+            ? "border-emerald-600/40 bg-emerald-500/10 text-emerald-200"
+            : "border-amber-600/40 bg-amber-500/10 text-amber-200"
+        }`}
+      >
+        Database status: {dbConnected ? "Connected" : "Connection issue"}
+      </div>
 
-      <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-white">Technical service requests</h1>
           <p className="mt-1 text-sm text-slate-400">
@@ -74,6 +96,12 @@ export default async function AdminDashboardPage({
         <p className="mt-1 text-sm text-slate-500">
           Most requested service types and regional demand across all submissions.
         </p>
+        {loadError ? (
+          <p className="mt-3 rounded-lg border border-amber-600/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+            Database connection is temporarily unavailable. Data views will return automatically once the connection
+            is restored.
+          </p>
+        ) : null}
         <div className="mt-4 grid gap-6 lg:grid-cols-2">
           <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
             <h3 className="text-sm font-medium text-slate-300">Most requested services</h3>
