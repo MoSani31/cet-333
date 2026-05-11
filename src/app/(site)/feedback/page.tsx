@@ -9,10 +9,18 @@ export const metadata: Metadata = { title: "Feedback" };
 export const dynamic = "force-dynamic";
 
 export default async function FeedbackPage() {
-  const approved = await db.ratingSubmission.findMany({
-    where: { status: RatingStatus.APPROVED },
-    orderBy: { createdAt: "desc" },
-  });
+  let approved: Awaited<ReturnType<typeof db.ratingSubmission.findMany>> = [];
+  let loadError = false;
+
+  try {
+    approved = await db.ratingSubmission.findMany({
+      where: { status: RatingStatus.APPROVED },
+      orderBy: { createdAt: "desc" },
+    });
+  } catch {
+    // Keep the page available even if the database is temporarily unreachable.
+    loadError = true;
+  }
 
   return (
     <main className="mx-auto max-w-6xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
@@ -27,6 +35,11 @@ export default async function FeedbackPage() {
 
       <h2 className="text-xl font-semibold text-white">Published testimonials</h2>
       <p className="mt-1 text-sm text-slate-500">Only ratings approved by CyberNova are shown.</p>
+      {loadError ? (
+        <p className="mt-3 rounded-lg border border-amber-600/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+          Testimonials are temporarily unavailable. You can still submit feedback while we restore the connection.
+        </p>
+      ) : null}
 
       <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {approved.length === 0 && (
