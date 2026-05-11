@@ -7,17 +7,17 @@ const cases = [
   {
     sector: "Regional financial services",
     outcome:
-      "Contained a credential-stuffing surge across customer portals—blocking abusive IPs, tightening MFA rollout for high-risk accounts, and proving effectiveness with before/after telemetry.",
+      "We helped contain a credential stuffing wave on customer portals by blocking abusive IPs, speeding MFA for high risk accounts, and showing before and after metrics so leadership could see the effect.",
   },
   {
     sector: "National ministry programme",
     outcome:
-      "Reduced dwell time after phishing-led footholds by correlating endpoint and identity signals; Cyber Assistant playbooks cut mean triage time for duty analysts.",
+      "We shortened dwell time after phishing led to footholds by joining endpoint and identity signals. Playbooks in the Cyber Assistant cut average triage time for on call analysts.",
   },
   {
     sector: "SME manufacturing group",
     outcome:
-      "Segmented OT-adjacent networks from corporate IT; anomaly alerts surfaced maintenance VPN misuse that preceded ransomware attempts elsewhere in the supply chain.",
+      "We split OT adjacent networks from corporate IT. Anomaly alerts caught misuse of a maintenance VPN before ransomware attempts spread in the supply chain.",
   },
 ] as const;
 
@@ -25,8 +25,8 @@ export default function CaseStudiesPage() {
   return (
     <main className="mx-auto max-w-6xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
       <PageHeading
-        title="Threat mitigation highlights"
-        subtitle="Illustrative outcomes from exercises and engagements—identifiers kept generic to respect client confidentiality."
+        title="Work we have supported"
+        subtitle="Examples of outcomes from real style engagements. Names and fine detail are kept generic on purpose."
       />
       <ol className="list-decimal space-y-5 pl-5 marker:text-cyan-400">
         {cases.map((c) => (

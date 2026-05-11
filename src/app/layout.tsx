@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "CyberNova Analytics · Gaborone",
-    template: "%s · CyberNova Analytics",
+    default: "CyberNova Analytics, Gaborone",
+    template: "%s, CyberNova Analytics",
   },
   description:
-    "AI-driven cybersecurity monitoring and digital transformation for SMEs, financial institutions, and public-sector teams across Southern Africa—with explainable risk insight and practical mitigation.",
+    "Cyber security monitoring and practical delivery for SMEs, banks, insurers, and public teams in Southern Africa. Clear risk insight and grounded mitigation advice.",
 };
 
 export default function RootLayout({

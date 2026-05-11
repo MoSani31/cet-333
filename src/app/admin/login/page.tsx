@@ -7,9 +7,9 @@ export const metadata: Metadata = { title: "Admin sign in" };
 export default function AdminLoginPage() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 py-16 sm:px-6">
-      <h1 className="text-2xl font-semibold text-white">Admin</h1>
+      <h1 className="text-2xl font-semibold text-white">Staff sign in</h1>
       <p className="mt-1 text-sm text-slate-400">
-        Sign in to review technical service requests, filters, and analytics from the Contact Security Team form.
+        View contact form requests, filters, and counts. You need the admin password from your environment file.
       </p>
       <div className="mt-8">
         <LoginForm />

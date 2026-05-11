@@ -14,7 +14,7 @@ export function IssueFilterLinks({ activeIssue }: Props) {
           !activeIssue ? "bg-cyan-600 text-slate-950" : "border border-slate-600 text-slate-300 hover:bg-slate-800"
         }`}
       >
-        All types
+        All
       </Link>
       {SECURITY_ISSUE_TYPES.map((t) => {
         const selected = activeIssue === t;

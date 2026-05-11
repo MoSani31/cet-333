@@ -9,11 +9,11 @@ export default function ContactPage() {
     <main className="mx-auto max-w-3xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
       <PageHeading
         title="Contact Security Team"
-        subtitle="Submit a technical service request with your details and the nature of the security issue. No account is required—we respond by email or phone."
+        subtitle="Tell us who you are and what you need. You do not need an account. We reply by email or phone."
       />
       <p className="mb-8 max-w-2xl text-sm text-slate-500">
-        We use what you send here only to respond to your enquiry and to improve our services, and we retain it only as
-        long as needed for that purpose. We do not use it to train public AI models.
+        We use what you send only to answer your enquiry and to improve how we help clients. We keep it only as long as
+        we need for that. We do not feed it into public AI training.
       </p>
       <ContactForm />
     </main>

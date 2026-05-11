@@ -26,7 +26,7 @@ export default async function FeedbackPage() {
     <main className="mx-auto max-w-6xl flex-1 px-4 py-12 sm:px-6 sm:py-16">
       <PageHeading
         title="Customer testimonials"
-        subtitle="Approved ratings from organisations we support—submissions are moderated before they appear here."
+        subtitle="Ratings from organisations we work with. Each one is checked before it appears here."
       />
 
       <div className="mb-14 space-y-6">
@@ -37,14 +37,14 @@ export default async function FeedbackPage() {
       <p className="mt-1 text-sm text-slate-500">Only ratings approved by CyberNova are shown.</p>
       {loadError ? (
         <p className="mt-3 rounded-lg border border-amber-600/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
-          Testimonials are temporarily unavailable. You can still submit feedback while we restore the connection.
+          Testimonials are temporarily unavailable. You can still send feedback while we fix the connection.
         </p>
       ) : null}
 
       <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {approved.length === 0 && (
           <li className="col-span-full rounded-lg border border-slate-800 bg-slate-900/30 p-8 text-center text-slate-500">
-            No approved testimonials yet—submit a rating above, or check back after moderators publish submissions.
+            No approved testimonials yet. Add a rating above, or check back once moderators publish new entries.
           </li>
         )}
         {approved.map((r) => (
@@ -53,7 +53,7 @@ export default async function FeedbackPage() {
             <p className="mt-3 text-sm text-slate-300">&ldquo;{r.comment}&rdquo;</p>
             <p className="mt-4 text-xs text-slate-500">
               {r.displayName}
-              {r.organization ? ` · ${r.organization}` : ""}
+              {r.organization ? `, ${r.organization}` : ""}
             </p>
           </li>
         ))}

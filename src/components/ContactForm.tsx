@@ -20,11 +20,11 @@ const labels: Record<Field, string> = {
   name: "Full name",
   email: "Email",
   phone: "Phone",
-  organization: "Organization",
+  organization: "Company or organisation",
   country: "Country",
   jobTitle: "Job title",
-  securityIssueType: "Type of security issue",
-  technicalProblem: "Description of technical problem",
+  securityIssueType: "What kind of help do you need",
+  technicalProblem: "Describe the problem",
 };
 
 type Status = { type: "idle" } | { type: "sending" } | { type: "ok" } | { type: "err"; message: string };
@@ -48,7 +48,7 @@ export function ContactForm() {
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
-        setStatus({ type: "err", message: data.error ?? "Something went wrong—please try again." });
+        setStatus({ type: "err", message: data.error ?? "Something went wrong. Please try again." });
         return;
       }
       setForm(initial);
@@ -113,7 +113,7 @@ export function ContactForm() {
       </label>
       {status.type === "ok" && (
         <p className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
-          Thank you—we&apos;ve received your request and the security team will be in touch soon.
+          Thank you. We have your request and the security team will get back to you soon.
         </p>
       )}
       {status.type === "err" && (
@@ -127,7 +127,7 @@ export function ContactForm() {
           disabled={status.type === "sending"}
           className="inline-flex min-w-36 items-center justify-center rounded-md bg-cyan-500 px-4 py-2.5 text-sm font-medium text-slate-950 transition hover:bg-cyan-400 disabled:opacity-60"
         >
-          {status.type === "sending" ? "Sending…" : "Send to security team"}
+          {status.type === "sending" ? "Sending…" : "Send request"}
         </button>
       </div>
     </form>

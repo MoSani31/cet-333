@@ -10,7 +10,7 @@ const nav = [
   { href: "/feedback", label: "Feedback" },
   { href: "/articles", label: "Articles" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact security" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export function MobileNav() {

@@ -8,8 +8,7 @@ export function Footer() {
           <div>
             <p className="text-sm font-medium text-white">CyberNova Analytics Ltd</p>
             <p className="mt-1 max-w-sm text-sm text-slate-400">
-              AI-driven cybersecurity monitoring, advisory, and secure digital transformation—built for organisations
-              across Southern Africa.
+              Monitoring, advisory, and secure delivery for organisations across Southern Africa.
             </p>
           </div>
           <div>
@@ -17,14 +16,14 @@ export function Footer() {
             <ul className="mt-2 space-y-1 text-sm text-cyan-400/90">
               <li>
                 <Link href="/contact" className="hover:underline">
-                  Contact Security Team
+                  Contact the security team
                 </Link>
               </li>
             </ul>
           </div>
         </div>
         <p className="mt-8 text-xs text-slate-500">
-          © {new Date().getFullYear()} CyberNova Analytics · Gaborone, Botswana
+          © {new Date().getFullYear()} CyberNova Analytics, Gaborone, Botswana
         </p>
       </div>
     </footer>

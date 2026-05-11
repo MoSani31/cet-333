@@ -33,7 +33,7 @@ export function RatingForm() {
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => ({}))) as { error?: string };
-        setStatus({ type: "err", message: data.error ?? "Something went wrong—please try again." });
+        setStatus({ type: "err", message: data.error ?? "Something went wrong. Please try again." });
         return;
       }
       setForm(initial);
@@ -45,9 +45,9 @@ export function RatingForm() {
 
   return (
     <section className="rounded-lg border border-slate-800 bg-slate-900/40 p-6 sm:p-8">
-      <h2 className="text-lg font-semibold text-white">Submit your rating</h2>
+      <h2 className="text-lg font-semibold text-white">Share a rating</h2>
       <p className="mt-1 text-sm text-slate-400">
-        Share a star rating and short testimonial. Submissions are reviewed before they appear publicly.
+        Add a star score and a short note. We read each one before it goes live on this page.
       </p>
       <form onSubmit={onSubmit} className="mt-6 space-y-5">
         <fieldset>
@@ -70,7 +70,7 @@ export function RatingForm() {
           </div>
         </fieldset>
         <label className="block text-sm text-slate-200">
-          <span className="mb-1 block text-slate-400">Your testimonial</span>
+          <span className="mb-1 block text-slate-400">Your comment</span>
           <textarea
             required
             rows={4}
@@ -78,7 +78,7 @@ export function RatingForm() {
             className="w-full rounded-md border border-slate-600 bg-slate-900/80 px-3 py-2 text-white outline-none ring-cyan-500/50 focus:ring-2"
             value={form.comment}
             onChange={(e) => setForm((f) => ({ ...f, comment: e.target.value }))}
-            placeholder="What stood out about working with CyberNova?"
+            placeholder="What worked well for you?"
           />
         </label>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -94,7 +94,7 @@ export function RatingForm() {
             />
           </label>
           <label className="block text-sm text-slate-200">
-            <span className="mb-1 block text-slate-400">Organization (optional)</span>
+            <span className="mb-1 block text-slate-400">Organisation (optional)</span>
             <input
               type="text"
               className="w-full rounded-md border border-slate-600 bg-slate-900/80 px-3 py-2 text-white outline-none ring-cyan-500/50 focus:ring-2"
@@ -105,18 +105,18 @@ export function RatingForm() {
           </label>
         </div>
         <label className="block text-sm text-slate-200">
-          <span className="mb-1 block text-slate-400">Contact email (optional, moderation only)</span>
+          <span className="mb-1 block text-slate-400">Contact email for moderators only (optional)</span>
           <input
             type="email"
             className="w-full rounded-md border border-slate-600 bg-slate-900/80 px-3 py-2 text-white outline-none ring-cyan-500/50 focus:ring-2"
             value={form.contactEmail}
             onChange={(e) => setForm((f) => ({ ...f, contactEmail: e.target.value }))}
-            placeholder="Not shown on the public site"
+            placeholder="Not shown on the public page"
           />
         </label>
         {status.type === "ok" && (
           <p className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
-            Thank you—your rating was submitted and will appear after the team reviews it.
+            Thank you. Your rating was received and will show here after the team approves it.
           </p>
         )}
         {status.type === "err" && (

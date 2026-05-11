@@ -6,7 +6,7 @@ import type { RatingStatus } from "@prisma/client";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Ratings moderation" };
+export const metadata: Metadata = { title: "Ratings" };
 
 function formatDate(d: Date) {
   return d.toLocaleString("en-GB", {
@@ -38,9 +38,9 @@ export default async function AdminRatingsPage() {
 
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Client ratings</h1>
+          <h1 className="text-2xl font-semibold text-white">Ratings to review</h1>
           <p className="mt-1 text-sm text-slate-400">
-            Approve or reject testimonials before they appear on the public feedback page.
+            Approve or reject before they show on the public feedback page.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export default async function AdminRatingsPage() {
               <th className="p-3 font-medium">Status</th>
               <th className="p-3 font-medium">Stars</th>
               <th className="p-3 font-medium">Display name</th>
-              <th className="p-3 font-medium">Organization</th>
+              <th className="p-3 font-medium">Organisation</th>
               <th className="p-3 font-medium">Contact email</th>
               <th className="p-3 font-medium min-w-[14rem]">Comment</th>
               <th className="p-3 font-medium">Actions</th>
@@ -94,14 +94,14 @@ export default async function AdminRatingsPage() {
                 </td>
                 <td className="p-3 align-top text-slate-200">{row.stars}</td>
                 <td className="p-3 align-top text-slate-200">{row.displayName}</td>
-                <td className="p-3 align-top text-slate-400">{row.organization ?? "—"}</td>
+                <td className="p-3 align-top text-slate-400">{row.organization ?? "None"}</td>
                 <td className="p-3 align-top text-cyan-300/80 text-xs">
                   {row.contactEmail ? (
                     <a href={`mailto:${row.contactEmail}`} className="hover:underline">
                       {row.contactEmail}
                     </a>
                   ) : (
-                    "—"
+                    "None"
                   )}
                 </td>
                 <td className="p-3 align-top text-slate-300 max-w-xs">

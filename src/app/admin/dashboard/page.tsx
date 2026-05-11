@@ -7,7 +7,7 @@ import { SECURITY_ISSUE_TYPES } from "@/lib/security-issue-types";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Service requests" };
+export const metadata: Metadata = { title: "Requests" };
 
 function formatDate(d: Date) {
   return d.toLocaleString("en-GB", {
@@ -64,12 +64,12 @@ export default async function AdminDashboardPage({
             : "border-amber-600/40 bg-amber-500/10 text-amber-200"
         }`}
       >
-        Database status: {dbConnected ? "Connected" : "Connection issue"}
+        Database status: {dbConnected ? "Connected" : "Not connected"}
       </div>
 
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Technical service requests</h1>
+          <h1 className="text-2xl font-semibold text-white">Requests from the contact form</h1>
           <p className="mt-1 text-sm text-slate-400">
             {issueFilter ? (
               <>
@@ -78,7 +78,7 @@ export default async function AdminDashboardPage({
               </>
             ) : (
               <>
-                Total requests: <span className="font-medium text-cyan-300">{total}</span>
+                Total in this view: <span className="font-medium text-cyan-300">{total}</span>
               </>
             )}
           </p>
@@ -92,20 +92,19 @@ export default async function AdminDashboardPage({
       </div>
 
       <section className="mt-10">
-        <h2 className="text-lg font-medium text-white">Analytics</h2>
+        <h2 className="text-lg font-medium text-white">Summary</h2>
         <p className="mt-1 text-sm text-slate-500">
-          Most requested service types and regional demand across all submissions.
+          Counts by issue type and by country for everything submitted so far.
         </p>
         {loadError ? (
           <p className="mt-3 rounded-lg border border-amber-600/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
-            Database connection is temporarily unavailable. Data views will return automatically once the connection
-            is restored.
+            Database connection is down for the moment. These charts will fill in again when the database is back.
           </p>
         ) : null}
         <div className="mt-4 grid gap-6 lg:grid-cols-2">
           <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <h3 className="text-sm font-medium text-slate-300">Most requested services</h3>
-            <p className="mt-1 text-xs text-slate-500">By security issue type</p>
+            <h3 className="text-sm font-medium text-slate-300">Requests by issue type</h3>
+            <p className="mt-1 text-xs text-slate-500">Security issue category</p>
             <ul className="mt-3 space-y-2 text-sm">
               {byType.length === 0 && <li className="text-slate-500">No data yet.</li>}
               {byType.map((row) => (
@@ -117,8 +116,8 @@ export default async function AdminDashboardPage({
             </ul>
           </div>
           <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <h3 className="text-sm font-medium text-slate-300">Regional demand</h3>
-            <p className="mt-1 text-xs text-slate-500">By country (as submitted)</p>
+            <h3 className="text-sm font-medium text-slate-300">Requests by country</h3>
+            <p className="mt-1 text-xs text-slate-500">Country field from the form</p>
             <ul className="mt-3 space-y-2 text-sm">
               {byCountry.length === 0 && <li className="text-slate-500">No data yet.</li>}
               {byCountry.map((row) => (
@@ -133,8 +132,8 @@ export default async function AdminDashboardPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-medium text-white">Filter by service type</h2>
-        <p className="mt-1 text-sm text-slate-500">Limit the table to one category of security issue.</p>
+        <h2 className="text-lg font-medium text-white">Filter by issue type</h2>
+        <p className="mt-1 text-sm text-slate-500">Narrow the table to one category.</p>
         <div className="mt-3">
           <IssueFilterLinks activeIssue={issueFilter} />
         </div>
@@ -148,7 +147,7 @@ export default async function AdminDashboardPage({
               <th className="p-3 font-medium">Name</th>
               <th className="p-3 font-medium">Email</th>
               <th className="p-3 font-medium">Phone</th>
-              <th className="p-3 font-medium">Organization</th>
+              <th className="p-3 font-medium">Organisation</th>
               <th className="p-3 font-medium">Country</th>
               <th className="p-3 font-medium">Job title</th>
               <th className="p-3 font-medium min-w-[10rem]">Security issue</th>
@@ -158,7 +157,7 @@ export default async function AdminDashboardPage({
             {inquiries.length === 0 && (
               <tr>
                 <td colSpan={8} className="p-6 text-slate-500">
-                  Nothing here for this filter. When someone submits the Contact Security Team form, rows appear here.
+                  Nothing matches this filter yet. New rows appear when someone uses the public contact form.
                 </td>
               </tr>
             )}
@@ -187,11 +186,11 @@ export default async function AdminDashboardPage({
 
       {inquiries.length > 0 && (
         <div className="mt-6 space-y-4">
-          <h2 className="text-lg font-medium text-white">Technical problem details (newest first)</h2>
+          <h2 className="text-lg font-medium text-white">What they wrote (newest first)</h2>
           {inquiries.map((row) => (
             <article key={row.id + "-details"} className="rounded-md border border-slate-800 bg-slate-900/40 p-4">
               <p className="text-xs text-slate-500">
-                {formatDate(row.createdAt)} — {row.name} ({row.email}) · {row.securityIssueType}
+                {formatDate(row.createdAt)} | {row.name} ({row.email}) | {row.securityIssueType}
               </p>
               <p className="mt-2 whitespace-pre-wrap text-sm text-slate-300">{row.technicalProblem}</p>
             </article>

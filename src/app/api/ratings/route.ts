@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "Please check the form—one or more fields look wrong.", issues: parsed.error.flatten() },
+      { error: "Please check the form. One or more fields look wrong.", issues: parsed.error.flatten() },
       { status: 400 },
     );
   }

@@ -1,4 +1,4 @@
-/** Allowed values for Contact Security Team — must stay in sync with contact API validation. */
+/** Allowed issue labels for the contact form. Keep in step with contact API validation. */
 export const SECURITY_ISSUE_TYPES = [
   "Incident response",
   "Vulnerability assessment",

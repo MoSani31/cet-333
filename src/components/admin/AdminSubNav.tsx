@@ -18,10 +18,10 @@ export async function AdminSubNav({ currentPath }: Props) {
   return (
     <nav className="flex flex-wrap items-center gap-2 border-b border-slate-800 pb-4" aria-label="Admin sections">
       <Link href="/admin/dashboard" className={linkClass("/admin/dashboard")}>
-        Service requests
+        Requests
       </Link>
       <Link href="/admin/ratings" className={linkClass("/admin/ratings")}>
-        Ratings moderation
+        Ratings
         {pending > 0 ? (
           <span className="ml-1.5 rounded-full bg-amber-500/25 px-2 py-0.5 text-xs font-medium text-amber-200">
             {pending} pending
