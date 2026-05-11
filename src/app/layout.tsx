@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AI-Solutions · Sunderland",
-    template: "%s · AI-Solutions",
+    default: "CyberNova Analytics · Gaborone",
+    template: "%s · CyberNova Analytics",
   },
   description:
-    "Sunderland-based team for workplace software, early builds you can try before you commit, and assistants that answer everyday staff questions.",
+    "AI-driven cybersecurity monitoring and digital transformation for SMEs, financial institutions, and public-sector teams across Southern Africa—with explainable risk insight and practical mitigation.",
 };
 
 export default function RootLayout({

@@ -6,9 +6,10 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="text-sm font-medium text-white">AI-Solutions</p>
+            <p className="text-sm font-medium text-white">CyberNova Analytics Ltd</p>
             <p className="mt-1 max-w-sm text-sm text-slate-400">
-              Small software projects, workplace assistants, and a bit of hands-on delivery. Based in Sunderland, UK.
+              AI-driven cybersecurity monitoring, advisory, and secure digital transformation—built for organisations
+              across Southern Africa.
             </p>
           </div>
           <div>
@@ -16,14 +17,14 @@ export function Footer() {
             <ul className="mt-2 space-y-1 text-sm text-cyan-400/90">
               <li>
                 <Link href="/contact" className="hover:underline">
-                  Contact us
+                  Contact Security Team
                 </Link>
               </li>
             </ul>
           </div>
         </div>
         <p className="mt-8 text-xs text-slate-500">
-          © {new Date().getFullYear()} AI-Solutions · Sunderland, UK
+          © {new Date().getFullYear()} CyberNova Analytics · Gaborone, Botswana
         </p>
       </div>
     </footer>

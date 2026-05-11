@@ -2,15 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { rateLimitSlidingWindow } from "@/lib/rate-limit";
+import { SECURITY_ISSUE_TYPES } from "@/lib/security-issue-types";
+
+const issueEnum = z.enum(
+  [...SECURITY_ISSUE_TYPES] as [string, ...string[]],
+);
 
 const bodySchema = z.object({
   name: z.string().min(1).max(200),
   email: z.string().email().max(200),
   phone: z.string().min(1).max(50),
-  companyName: z.string().min(1).max(200),
+  organization: z.string().min(1).max(200),
   country: z.string().min(1).max(100),
   jobTitle: z.string().min(1).max(200),
-  jobDetails: z.string().min(1).max(5000),
+  securityIssueType: issueEnum,
+  technicalProblem: z.string().min(1).max(5000),
 });
 
 export async function POST(request: NextRequest) {
@@ -39,6 +45,17 @@ export async function POST(request: NextRequest) {
   }
 
   const data = parsed.data;
-  await db.inquiry.create({ data: data });
+  await db.inquiry.create({
+    data: {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      organization: data.organization,
+      country: data.country,
+      jobTitle: data.jobTitle,
+      securityIssueType: data.securityIssueType,
+      technicalProblem: data.technicalProblem,
+    },
+  });
   return NextResponse.json({ ok: true });
 }

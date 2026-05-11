@@ -8,13 +8,35 @@ datasource db {
 }
 
 model Inquiry {
-  id          String   @id @default(cuid())
-  name        String
-  email       String
-  phone       String
-  companyName String
-  country     String
-  jobTitle    String
-  jobDetails  String
-  createdAt   DateTime @default(now())
+  id                String   @id @default(cuid())
+  name              String
+  email             String
+  phone             String
+  organization      String   @map("companyName")
+  country           String
+  jobTitle          String
+  technicalProblem  String   @map("jobDetails")
+  securityIssueType String   @default("Other")
+  createdAt         DateTime @default(now())
+}
+
+enum RatingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model RatingSubmission {
+  id           String       @id @default(cuid())
+  stars        Int
+  comment      String
+  displayName  String
+  organization String?
+  contactEmail String?
+  status       RatingStatus @default(PENDING)
+  createdAt    DateTime     @default(now())
+  moderatedAt  DateTime?
+
+  @@index([status])
+  @@index([createdAt])
 }

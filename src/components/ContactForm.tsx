@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { SECURITY_ISSUE_TYPES } from "@/lib/security-issue-types";
 
 const initial = {
   name: "",
   email: "",
   phone: "",
-  companyName: "",
+  organization: "",
   country: "",
   jobTitle: "",
-  jobDetails: "",
+  securityIssueType: SECURITY_ISSUE_TYPES[0],
+  technicalProblem: "",
 };
 
 type Field = keyof typeof initial;
@@ -18,10 +20,11 @@ const labels: Record<Field, string> = {
   name: "Full name",
   email: "Email",
   phone: "Phone",
-  companyName: "Company name",
+  organization: "Organization",
   country: "Country",
   jobTitle: "Job title",
-  jobDetails: "What you need",
+  securityIssueType: "Type of security issue",
+  technicalProblem: "Description of technical problem",
 };
 
 type Status = { type: "idle" } | { type: "sending" } | { type: "ok" } | { type: "err"; message: string };
@@ -63,7 +66,7 @@ export function ContactForm() {
             "name",
             "email",
             "phone",
-            "companyName",
+            "organization",
             "country",
             "jobTitle",
           ] as const
@@ -82,19 +85,35 @@ export function ContactForm() {
         ))}
       </div>
       <label className="block text-sm text-slate-200">
-        <span className="mb-1 block text-slate-400">{labels.jobDetails}</span>
+        <span className="mb-1 block text-slate-400">{labels.securityIssueType}</span>
+        <select
+          name="securityIssueType"
+          required
+          className="w-full rounded-md border border-slate-600 bg-slate-900/80 px-3 py-2 text-white outline-none ring-cyan-500/50 focus:ring-2"
+          value={form.securityIssueType}
+          onChange={(e) => onChange("securityIssueType", e.target.value)}
+        >
+          {SECURITY_ISSUE_TYPES.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="block text-sm text-slate-200">
+        <span className="mb-1 block text-slate-400">{labels.technicalProblem}</span>
         <textarea
-          name="jobDetails"
+          name="technicalProblem"
           required
           rows={5}
           className="w-full rounded-md border border-slate-600 bg-slate-900/80 px-3 py-2 text-white outline-none ring-cyan-500/50 focus:ring-2"
-          value={form.jobDetails}
-          onChange={(e) => onChange("jobDetails", e.target.value)}
+          value={form.technicalProblem}
+          onChange={(e) => onChange("technicalProblem", e.target.value)}
         />
       </label>
       {status.type === "ok" && (
         <p className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
-          Thank you—we've got your message and we'll be in touch soon.
+          Thank you—we&apos;ve received your request and the security team will be in touch soon.
         </p>
       )}
       {status.type === "err" && (
@@ -108,7 +127,7 @@ export function ContactForm() {
           disabled={status.type === "sending"}
           className="inline-flex min-w-36 items-center justify-center rounded-md bg-cyan-500 px-4 py-2.5 text-sm font-medium text-slate-950 transition hover:bg-cyan-400 disabled:opacity-60"
         >
-          {status.type === "sending" ? "Sending…" : "Send message"}
+          {status.type === "sending" ? "Sending…" : "Send to security team"}
         </button>
       </div>
     </form>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -10,7 +10,7 @@ const nav = [
   { href: "/feedback", label: "Feedback" },
   { href: "/articles", label: "Articles" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Contact security" },
 ] as const;
 
 export function MobileNav() {
