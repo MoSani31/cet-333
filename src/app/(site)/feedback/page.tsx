@@ -6,6 +6,7 @@ import { RatingStatus } from "@prisma/client";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Feedback" };
+export const dynamic = "force-dynamic";
 
 export default async function FeedbackPage() {
   const approved = await db.ratingSubmission.findMany({
